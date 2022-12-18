@@ -1,0 +1,7 @@
+{
+  "name": "digimon",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
