@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { DigimonService } from 'src/app/modules/search/services/digimon.service';
 
 @Component({
   selector: 'app-search',
@@ -7,8 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchComponent implements OnInit {
 
-  constructor() { }
+  @Input() isHome: boolean = false;
 
-  ngOnInit() {}
+  name: string = '';
+
+  constructor(private service: DigimonService) { }
+  ngOnInit() { }
+
+  async search() {
+    console.log(this.name);
+    var response = await this.service.searchDigimon(this.name);
+    console.log(response);
+  }
 
 }

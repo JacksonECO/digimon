@@ -5,9 +5,9 @@
 
   <div>
     <img class="logo" src="./assets/digimon.svg" alt="Digimon logo" />
-    <app-search></app-search>
-    <ion-button shape="round" fill="clear">
-      <u>Todos os Digimons </u>
+    <app-search [isHome]="true"></app-search>
+    <ion-button shape="round" fill="clear" (click)="searchAll()">
+      <u>Todos os Digimons</u>
     </ion-button>
   </div>
 

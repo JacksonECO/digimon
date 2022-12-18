@@ -1,7 +1,7 @@
 <ion-item class="roundedInput">
-  <ion-input placeholder="Buscar Digimon"></ion-input>
+  <ion-input placeholder="Buscar Digimon" [(ngModel)]="name"></ion-input>
 
-  <ion-button shape="round" fill="clear">
+  <ion-button shape="round" fill="clear" (click)="search()">
     <ion-icon name="search-outline"></ion-icon>
   </ion-button>
 

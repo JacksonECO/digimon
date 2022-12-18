@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { DigimonService } from '../search/services/digimon.service';
 
 @Component({
   selector: 'app-home',
@@ -7,6 +8,10 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  constructor() {}
+  constructor(private service: DigimonService) { }
 
+  async searchAll() {
+    var response = await this.service.allDigimon();
+    console.log(response);
+  }
 }
