@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NavController } from '@ionic/angular';
 import { DigimonService } from '../search/services/digimon.service';
 
 @Component({
@@ -8,10 +9,11 @@ import { DigimonService } from '../search/services/digimon.service';
 })
 export class HomePage {
 
-  constructor(private service: DigimonService) { }
+  constructor(private service: DigimonService, private navigator: NavController) { }
 
   async searchAll() {
     var response = await this.service.allDigimon();
     console.log(response);
+    if (response) this.navigator.navigateForward('search');
   }
 }

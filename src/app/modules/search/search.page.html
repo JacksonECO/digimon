@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <app-search></app-search>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let digimon of listDigimon">
+      <ion-card>
+        <img alt="Image of Digimon: {{digimon.name}}" src="{{digimon.img}}" />
+        <div class="info-card">
+          <ion-card-title>{{digimon.name}}</ion-card-title>
+
+          <div class="row-star">
+            <ion-list class="row-star">
+              <ion-item *ngFor="let star of listStar1(digimon)">
+                <ion-icon name="star" color="yellow"></ion-icon>
+              </ion-item>
+            </ion-list>
+            <ion-list class="row-star">
+              <ion-item *ngFor="let star of listStar2(digimon)">
+                <ion-icon name="star-outline"></ion-icon>
+              </ion-item>
+            </ion-list>
+          </div>
+          <h6>{{digimon.level}}</h6>
+
+        </div>
+      </ion-card>
+    </ion-item>
+  </ion-list>
+
+</ion-content>
