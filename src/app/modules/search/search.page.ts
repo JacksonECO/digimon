@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DigimonService } from 'src/app/core/services/digimon.service';
 import { Digimon } from './interfaces/digimon';
-import { LevelDigimon } from './interfaces/level-digimon';
+// import { LevelDigimon } from './interfaces/level-digimon';
 
 @Component({
   selector: 'search-page',
@@ -38,16 +38,7 @@ export class SearchPage implements OnInit {
     // }
   }
 
-  updateListDigimon(listDigimon: Array<Digimon>) {
-    if (listDigimon.length > 25) {
-      this.listDigimon = listDigimon.slice(0, 25);
-      setTimeout(() => {
-        this.listDigimon = listDigimon;
-      }, 1000);
-    } else {
-      this.listDigimon = listDigimon;
-    }
-  }
+
 
   async newSearch(value: string) {
     var response = await this.service.searchDigimon(value);
@@ -55,7 +46,16 @@ export class SearchPage implements OnInit {
     // TODO: Atualizar a lista de Digimons
   }
 
-
+  updateListDigimon(listDigimon: Array<Digimon>) {
+    if (listDigimon.length > 25) {
+      this.listDigimon = listDigimon.slice(0, 25);
+      setTimeout(() => {
+        this.listDigimon = listDigimon;
+      }, 250);
+    } else {
+      this.listDigimon = listDigimon;
+    }
+  }
 
   listStar1(digimon: Digimon): Array<any> {
     switch (digimon.level) {

@@ -1,14 +1,14 @@
-<ion-header [translucent]="true">
-</ion-header>
-
 <ion-content [fullscreen]="true" color="yellow">
 
   <div>
     <img class="logo" src="./assets/digimon.svg" alt="Digimon logo" />
     <app-search [isHome]="true"></app-search>
-    <ion-button shape="round" fill="clear" (click)="searchAll()">
-      <u>Todos os Digimons</u>
-    </ion-button>
+    <div color="primary">
+
+      <ion-button shape="round" fill="clear" (click)="searchAll()">
+        <u>Todos os Digimons</u>
+      </ion-button>
+    </div>
   </div>
 
 </ion-content>
