@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { DigimonService } from 'src/app/core/services/digimon.service';
 import { Digimon } from './interfaces/digimon';
 import { LevelDigimon } from './interfaces/level-digimon';
 
@@ -11,30 +12,50 @@ import { LevelDigimon } from './interfaces/level-digimon';
 export class SearchPage implements OnInit {
 
   listDigimon: Array<Digimon> = [];
-
-  constructor(private route: ActivatedRoute) {
-    this.route.queryParams.subscribe(params => {
-      this.listDigimon = params["listDigimon"];
-      this.listDigimon = [
-        { "name": "Koromon", "img": "https://digimon.shadowsmith.com/img/koromon.jpg", "level": "In Training" as LevelDigimon },
-        { "name": "Bukamon", "img": "https://digimon.shadowsmith.com/img/bukamon.jpg", "level": "In Training" as LevelDigimon },
-        { "name": "Tokomon", "img": "https://digimon.shadowsmith.com/img/tokomon.jpg", "level": "In Training" as LevelDigimon },
-        { "name": "Tentomon", "img": "https://digimon.shadowsmith.com/img/tentomon.jpg", "level": "Rookie" as LevelDigimon },
-        { "name": "Palmon", "img": "https://digimon.shadowsmith.com/img/palmon.jpg", "level": "Fresh" as LevelDigimon },
-        { "name": "Gomamon", "img": "https://digimon.shadowsmith.com/img/gomamon.jpg", "level": "Rookie" as LevelDigimon },
-        { "name": "Patamon", "img": "https://digimon.shadowsmith.com/img/patamon.jpg", "level": "Ultimate" as LevelDigimon },
-        { "name": "Kuwagamon", "img": "https://digimon.shadowsmith.com/img/kuwagamon.jpg", "level": "Champion" as LevelDigimon },
-        { "name": "Greymon", "img": "https://digimon.shadowsmith.com/img/greymon.jpg", "level": "Champion" as LevelDigimon },
-        { "name": "Shellmon", "img": "https://digimon.shadowsmith.com/img/shellmon.jpg", "level": "Mega" as LevelDigimon },
-      ];
-      for (let i = 0; i < this.listDigimon.length; i++) {
-        console.log(this.listDigimon[i]);
+  constructor(private route: ActivatedRoute, private router: Router, private service: DigimonService) {
+    this.route.queryParams.subscribe(_ => {
+      if (this.router.getCurrentNavigation()?.extras.state) {
+        this.updateListDigimon(this.router.getCurrentNavigation()!.extras.state?.['listDigimon']);
       }
     });
+
   }
 
   ngOnInit() {
+    // if (this.listDigimon.length == 0) {
+    //   this.listDigimon = [
+    //     { "name": "Koromon", "img": "https://digimon.shadowsmith.com/img/koromon.jpg", "level": "In Training" as LevelDigimon },
+    //     { "name": "Bukamon", "img": "https://digimon.shadowsmith.com/img/bukamon.jpg", "level": "In Training" as LevelDigimon },
+    //     { "name": "Tokomon", "img": "https://digimon.shadowsmith.com/img/tokomon.jpg", "level": "In Training" as LevelDigimon },
+    //     { "name": "Tentomon", "img": "https://digimon.shadowsmith.com/img/tentomon.jpg", "level": "Rookie" as LevelDigimon },
+    //     { "name": "Palmon", "img": "https://digimon.shadowsmith.com/img/palmon.jpg", "level": "Fresh" as LevelDigimon },
+    //     { "name": "Gomamon", "img": "https://digimon.shadowsmith.com/img/gomamon.jpg", "level": "Rookie" as LevelDigimon },
+    //     { "name": "Patamon", "img": "https://digimon.shadowsmith.com/img/patamon.jpg", "level": "Ultimate" as LevelDigimon },
+    //     { "name": "Kuwagamon", "img": "https://digimon.shadowsmith.com/img/kuwagamon.jpg", "level": "Champion" as LevelDigimon },
+    //     { "name": "Greymon", "img": "https://digimon.shadowsmith.com/img/greymon.jpg", "level": "Champion" as LevelDigimon },
+    //     { "name": "Shellmon", "img": "https://digimon.shadowsmith.com/img/shellmon.jpg", "level": "Mega" as LevelDigimon },
+    //   ];
+    // }
   }
+
+  updateListDigimon(listDigimon: Array<Digimon>) {
+    if (listDigimon.length > 25) {
+      this.listDigimon = listDigimon.slice(0, 25);
+      setTimeout(() => {
+        this.listDigimon = listDigimon;
+      }, 1000);
+    } else {
+      this.listDigimon = listDigimon;
+    }
+  }
+
+  async newSearch(value: string) {
+    var response = await this.service.searchDigimon(value);
+    console.log(response);
+    // TODO: Atualizar a lista de Digimons
+  }
+
+
 
   listStar1(digimon: Digimon): Array<any> {
     switch (digimon.level) {

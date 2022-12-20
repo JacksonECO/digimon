@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from '@ionic/angular';
-import { DigimonService } from '../search/services/digimon.service';
+import { DigimonService } from '../../core/services/digimon.service';
 
 @Component({
   selector: 'app-home',
@@ -14,6 +14,11 @@ export class HomePage {
   async searchAll() {
     var response = await this.service.allDigimon();
     console.log(response);
-    if (response) this.navigator.navigateForward('search');
+    if (response) this.navigator.navigateForward('search', {
+      state: {
+        listDigimon: response
+      }
+    });
   }
+
 }

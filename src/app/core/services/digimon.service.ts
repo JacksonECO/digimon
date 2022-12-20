@@ -33,7 +33,7 @@ export class DigimonService {
     var resp = await this.http.get(url).toPromise().then((response: any) => {
 
       if (response.length != 0) {
-        return response[0];
+        return response;
       }
       return null;
     }).catch(error => {
