@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Digimon } from '../../core/interfaces/digimon';
-// import { LevelDigimon } from './interfaces/level-digimon';
 
 @Component({
   selector: 'search-page',
@@ -24,11 +23,9 @@ export class SearchPage implements OnInit {
         this.updateListDigimon(state?.['listDigimon']);
       }
     });
-
   }
 
   ngOnInit() { }
-
 
   updateListDigimon(listDigimonNew: Array<Digimon>) {
     this.listDigimonAll = listDigimonNew;
@@ -44,16 +41,17 @@ export class SearchPage implements OnInit {
         this.limit = this.listDigimonAll.length - this.counter;
       }
 
-      this.listDigimon = this.listDigimonAll.slice(this.counter, this.counter + this.limit);
+      this.listDigimon = this.listDigimon.concat(this.listDigimonAll.slice(this.counter, this.counter + this.limit));
       this.counter = this.counter + this.limit;
     }
     event.target.complete();
   }
 
-  listStar1(digimon: Digimon): Array<any> {
+  listStar1(digimon: Digimon | any): Array<any> {
     switch (digimon.level) {
       case 'Fresh':
         return [];
+      case 'Training':
       case 'In Training':
         return [1];
       case 'Rookie':
@@ -64,14 +62,17 @@ export class SearchPage implements OnInit {
         return [1, 2, 3, 4];
       case 'Mega':
         return [1, 2, 3, 4, 5];
+      case 'Armor':
+        return [1, 2, 3, 4, 5, 6];
       default:
         return [];
     }
   }
-  listStar2(digimon: Digimon): Array<any> {
+  listStar2(digimon: Digimon | any): Array<any> {
     switch (digimon.level) {
       case 'Fresh':
         return [1, 2, 3, 4, 5];
+      case 'Training':
       case 'In Training':
         return [1, 2, 3, 4];
       case 'Rookie':
@@ -80,6 +81,7 @@ export class SearchPage implements OnInit {
         return [1, 2];
       case 'Ultimate':
         return [1];
+      case 'Armor':
       case 'Mega':
         return [];
       default:
