@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { Digimon } from 'src/app/modules/search/interfaces/digimon';
+import { HttpClient } from '@angular/common/http';
+import { Digimon } from '../interfaces/digimon';
+
 
 @Injectable({
   providedIn: 'root'

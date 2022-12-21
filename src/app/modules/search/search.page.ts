@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Digimon } from './interfaces/digimon';
+import { Digimon } from '../../core/interfaces/digimon';
 // import { LevelDigimon } from './interfaces/level-digimon';
 
 @Component({

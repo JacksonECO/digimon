@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { DigimonService } from '../../core/services/digimon.service';
-import { Digimon } from '../search/interfaces/digimon';
+import { Digimon } from '../../core/interfaces/digimon';
 
 @Component({
   selector: 'app-home',
