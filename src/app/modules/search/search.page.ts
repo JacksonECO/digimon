@@ -9,6 +9,9 @@ import { Digimon } from '../../core/interfaces/digimon';
   styleUrls: ['./search.page.scss'],
 })
 export class SearchPage implements OnInit {
+  private listDigimonAll: Array<Digimon> = [];
+  private counter: number = 0;
+  private limit: number = 10;
 
   listDigimon: Array<Digimon> = [];
   title: string = 'Digimon';
@@ -24,33 +27,27 @@ export class SearchPage implements OnInit {
 
   }
 
-  ngOnInit() {
-    // if (this.listDigimon.length == 0) {
-    //   this.listDigimon = [
-    //     { "name": "Koromon", "img": "https://digimon.shadowsmith.com/img/koromon.jpg", "level": "In Training" as LevelDigimon },
-    //     { "name": "Bukamon", "img": "https://digimon.shadowsmith.com/img/bukamon.jpg", "level": "In Training" as LevelDigimon },
-    //     { "name": "Tokomon", "img": "https://digimon.shadowsmith.com/img/tokomon.jpg", "level": "In Training" as LevelDigimon },
-    //     { "name": "Tentomon", "img": "https://digimon.shadowsmith.com/img/tentomon.jpg", "level": "Rookie" as LevelDigimon },
-    //     { "name": "Palmon", "img": "https://digimon.shadowsmith.com/img/palmon.jpg", "level": "Fresh" as LevelDigimon },
-    //     { "name": "Gomamon", "img": "https://digimon.shadowsmith.com/img/gomamon.jpg", "level": "Rookie" as LevelDigimon },
-    //     { "name": "Patamon", "img": "https://digimon.shadowsmith.com/img/patamon.jpg", "level": "Ultimate" as LevelDigimon },
-    //     { "name": "Kuwagamon", "img": "https://digimon.shadowsmith.com/img/kuwagamon.jpg", "level": "Champion" as LevelDigimon },
-    //     { "name": "Greymon", "img": "https://digimon.shadowsmith.com/img/greymon.jpg", "level": "Champion" as LevelDigimon },
-    //     { "name": "Shellmon", "img": "https://digimon.shadowsmith.com/img/shellmon.jpg", "level": "Mega" as LevelDigimon },
-    //   ];
-    // }
+  ngOnInit() { }
+
+
+  updateListDigimon(listDigimonNew: Array<Digimon>) {
+    this.listDigimonAll = listDigimonNew;
+    this.listDigimon = listDigimonNew.slice(this.counter, this.counter + this.limit);
+
+    this.counter = this.counter + this.limit;
+    this.limit = 30;
   }
 
+  onIonInfinite(event: any) {
+    if (this.counter < this.listDigimonAll.length) {
+      if (this.counter + this.limit > this.listDigimonAll.length) {
+        this.limit = this.listDigimonAll.length - this.counter;
+      }
 
-  updateListDigimon(listDigimon: Array<Digimon>) {
-    if (listDigimon.length > 25) {
-      this.listDigimon = listDigimon.slice(0, 25);
-      setTimeout(() => {
-        this.listDigimon = listDigimon;
-      }, 250);
-    } else {
-      this.listDigimon = listDigimon;
+      this.listDigimon = this.listDigimonAll.slice(this.counter, this.counter + this.limit);
+      this.counter = this.counter + this.limit;
     }
+    event.target.complete();
   }
 
   listStar1(digimon: Digimon): Array<any> {
