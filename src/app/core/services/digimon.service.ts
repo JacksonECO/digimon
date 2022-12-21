@@ -15,9 +15,9 @@ export class DigimonService {
     var listDigimon = await this.http.get(url).toPromise().then((response: any) => {
       if (response.length == 0) return null;
 
-      var list = new Array<Digimon>();
-      response.forEach((element: Digimon) => {
-        list.push(element);
+      var list: Array<Digimon> = response;
+      list.sort((a, b) => {
+        return a.name.localeCompare(b.name);
       });
 
       return list;
@@ -50,9 +50,9 @@ export class DigimonService {
     var listDigimon = await this.http.get(url).toPromise().then((response: any) => {
       if (response.length == 0) return null;
 
-      var list = new Array<Digimon>();
-      response.forEach((element: Digimon) => {
-        list.push(element);
+      var list: Array<Digimon> = response;
+      list.sort((a, b) => {
+        return a.name.localeCompare(b.name);
       });
 
       return list;
