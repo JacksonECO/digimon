@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { NavController, ToastController } from '@ionic/angular';
 import { DigimonService } from '../../core/services/digimon.service';
 import { Digimon } from '../../core/interfaces/digimon';
 
@@ -12,13 +12,11 @@ export class HomePage {
 
   dropValue: string = 'Todos';
 
-  constructor(private service: DigimonService, private navigator: NavController) { }
+  constructor(private service: DigimonService, private navigator: NavController, private toastController: ToastController) { }
 
   async search() {
     var response: Array<Digimon> | null = [];
     var title: string = 'Digimon';
-
-    console.log(this.dropValue);
 
     if (this.dropValue == 'Todos') {
       response = await this.service.allDigimon();
@@ -27,13 +25,23 @@ export class HomePage {
       response = await this.service.searchDigimonLevel(this.dropValue);
     }
 
-    console.log(response);
-    if (response) this.navigator.navigateForward('search', {
-      state: {
-        listDigimon: response,
-        title: title
-      }
+    if (response) {
+      this.navigator.navigateForward('search', {
+        state: {
+          listDigimon: response,
+          title: title
+        }
+      });
+      return;
+    }
+
+    const toast = await this.toastController.create({
+      message: 'Nenhum resultado encontrado!',
+      duration: 1500,
+      position: 'bottom'
     });
+    await toast.present();
+
   }
 
   changeDropValue(event: any) {
