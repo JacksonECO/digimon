@@ -1,12 +1,15 @@
 <ion-header [translucent]="true">
-  <ion-toolbar elevation="0px">
-    <app-search [action]="newSearch"></app-search>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title text-center>{{title}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-list>
-    <ion-item *ngFor="let digimon of listDigimon">
+    <ion-item *ngFor="let digimon of listDigimon" value="digimon.name">
       <div class="center">
         <ion-card>
           <img alt="Image of Digimon: {{digimon.name}}" src="{{digimon.img}}" />

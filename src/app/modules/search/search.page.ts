@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DigimonService } from 'src/app/core/services/digimon.service';
 import { Digimon } from './interfaces/digimon';
 // import { LevelDigimon } from './interfaces/level-digimon';
 
@@ -12,10 +11,14 @@ import { Digimon } from './interfaces/digimon';
 export class SearchPage implements OnInit {
 
   listDigimon: Array<Digimon> = [];
-  constructor(private route: ActivatedRoute, private router: Router, private service: DigimonService) {
+  title: string = 'Digimon';
+
+  constructor(private route: ActivatedRoute, private router: Router) {
     this.route.queryParams.subscribe(_ => {
       if (this.router.getCurrentNavigation()?.extras.state) {
-        this.updateListDigimon(this.router.getCurrentNavigation()!.extras.state?.['listDigimon']);
+        var state = this.router.getCurrentNavigation()!.extras.state;
+        this.title = state?.['title'] ?? 'Digimon';
+        this.updateListDigimon(state?.['listDigimon']);
       }
     });
 
@@ -38,13 +41,6 @@ export class SearchPage implements OnInit {
     // }
   }
 
-
-
-  async newSearch(value: string) {
-    var response = await this.service.searchDigimon(value);
-    console.log(response);
-    // TODO: Atualizar a lista de Digimons
-  }
 
   updateListDigimon(listDigimon: Array<Digimon>) {
     if (listDigimon.length > 25) {

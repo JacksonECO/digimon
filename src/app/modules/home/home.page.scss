@@ -1,20 +1,30 @@
-.logo {
-  display: block;
-  position: relative;
-  width: min(65%, 450px);
+app-search {
+  padding-top: 24px;
+  padding-bottom: 4px;
+  width: min(75%, 450px);
 }
 
+label {
+  width: 10px;
+}
 
-div {
+ion-item {
+  width: min(75%, 300px);
+  border-radius: 25px;
+}
+
+.content {
   display: flex;
   flex-direction: column;
   align-items: center;
 
   position: relative;
   top: 20%;
+  --ion-background-color: var(--ion-color-white);
 }
 
-app-search {
-  padding-top: 24px;
-  padding-bottom: 4px;
+.logo {
+  display: block;
+  position: relative;
+  width: min(80%, 450px);
 }

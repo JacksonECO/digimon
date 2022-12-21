@@ -1,14 +1,30 @@
 <ion-content [fullscreen]="true" color="yellow">
 
-  <div>
-    <img class="logo" src="./assets/digimon.svg" alt="Digimon logo" />
-    <app-search [isHome]="true"></app-search>
-    <div color="primary">
+  <div class="content">
 
-      <ion-button shape="round" fill="clear" (click)="searchAll()">
-        <u>Todos os Digimons</u>
-      </ion-button>
-    </div>
+    <img class="logo" src="./assets/digimon.svg" alt="Digimon logo" />
+    <app-search class="busca" [isHome]="true"></app-search>
+
+
+    <h6> Busca Avançada </h6>
+
+    <ion-item>
+      <ion-label>Nível</ion-label>
+      <ion-select interface="alert" value="Todos" (ionChange)="changeDropValue($event)">
+        <ion-select-option value="Todos">Todos</ion-select-option>
+        <ion-select-option value="Fresh">Fresh</ion-select-option>
+        <ion-select-option value="In Training">In Training</ion-select-option>
+        <ion-select-option value="Rookie">Rookie</ion-select-option>
+        <ion-select-option value="Champion">Champion</ion-select-option>
+        <ion-select-option value="Ultimate">Ultimate</ion-select-option>
+        <ion-select-option value="Mega">Mega</ion-select-option>
+
+      </ion-select>
+    </ion-item>
+
+    <ion-button shape="round" fill="clear" (click)="search()">
+      <u>Buscar</u>
+    </ion-button>
   </div>
 
 </ion-content>

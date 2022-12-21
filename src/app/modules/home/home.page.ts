@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { DigimonService } from '../../core/services/digimon.service';
+import { Digimon } from '../search/interfaces/digimon';
 
 @Component({
   selector: 'app-home',
@@ -9,16 +10,34 @@ import { DigimonService } from '../../core/services/digimon.service';
 })
 export class HomePage {
 
+  dropValue: string = 'Todos';
+
   constructor(private service: DigimonService, private navigator: NavController) { }
 
-  async searchAll() {
-    var response = await this.service.allDigimon();
+  async search() {
+    var response: Array<Digimon> | null = [];
+    var title: string = 'Digimon';
+
+    console.log(this.dropValue);
+
+    if (this.dropValue == 'Todos') {
+      response = await this.service.allDigimon();
+    } else {
+      title = this.dropValue;
+      response = await this.service.searchDigimonLevel(this.dropValue);
+    }
+
     console.log(response);
     if (response) this.navigator.navigateForward('search', {
       state: {
-        listDigimon: response
+        listDigimon: response,
+        title: title
       }
     });
+  }
+
+  changeDropValue(event: any) {
+    this.dropValue = event.detail.value;
   }
 
 }
